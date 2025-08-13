@@ -44,7 +44,34 @@ describe('Update booking', () => {
         })
     });
 
-   
+    it('Update booking', () => {
+        cy.request({
+            method: 'PUT',
+            url: `https://restful-booker.herokuapp.com/booking/${bookingId}`,
+            body: {
+                "firstname": "Leonardo",
+                "lastname": "Szarblewski",
+                "totalprice": 400,
+                "depositpaid": true,
+                "bookingdates": {
+                    "checkin": "2025-08-05",
+                    "checkout": "2025-09-05"
+                },
+                "additionalneeds": "Breakfast"
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Cookie': `token=${token}`,
+            }
+
+        }).then((responsePut) => {
+            expect(responsePut.status).equal(200)
+            expect(responsePut.body.firstname).equal('Leonardo')
+            expect(responsePut.body.lastname).equal('Szarblewski')
+
+        })
+    });
 
     
 
