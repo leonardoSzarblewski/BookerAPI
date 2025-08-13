@@ -1,7 +1,6 @@
 /// <reference types="cypress"/>
 
 describe('Update booking', () => {
-    
     let token = ''
 
     before('Login', () => {
@@ -13,12 +12,13 @@ describe('Update booking', () => {
                 "password": "password123"
             }
         }).then((response) => {
+            expect(response.status).equal(200)
             token = response.body.token
-            
+
         })
     });
 
-    it('', () => {
-        
-    });
-});
+    
+
+})
+
