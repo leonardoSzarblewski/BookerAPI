@@ -99,7 +99,32 @@ describe('Update booking', () => {
         })
     });
 
-    
+    it('Update bookin with invalid token', () => {
+        cy.request({
+            method: 'PUT',
+            url: 'https://restful-booker.herokuapp.com/booking/439',
+            body: {
+                "firstname": "Leonardo",
+                "lastname": "Szarblewski",
+                "totalprice": 400,
+                "depositpaid": true,
+                "bookingdates": {
+                    "checkin": "2025-08-05",
+                    "checkout": "2025-09-05"
+                },
+                "additionalneeds": "Breakfast"
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Cookie': 'token=invalid',
+            },
+            failOnStatusCode: false,
+
+        }).then((responsePut) => {
+            expect(responsePut.status).equal(403)
+        })
+    });
 
 })
 
